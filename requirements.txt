@@ -1,0 +1,24 @@
+# Core ML/AI Libraries
+torch>=1.9.0
+numpy>=1.21.0
+pandas>=1.3.0
+scikit-learn>=1.0.0
+
+# Network Analysis
+scapy>=2.4.5
+
+# Visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Utilities
+argparse
+warnings
+itertools
+tqdm
+tensorboard
+
+# Optional Dependencies for Advanced Features
+# torchsummary>=1.5.1
+# plotly>=5.0.0
+# jupyter>=1.0.0
