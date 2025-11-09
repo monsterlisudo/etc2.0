@@ -1,0 +1,224 @@
+# 模型配置文件
+
+model:
+  # 基础参数
+  num_classes: 10  # 将根据数据集动态确定
+  time_dim: 5      # 时序特征维度
+  topo_dim: 10     # 拓扑特征维度  
+  seq_dim: 5       # 序列特征维度
+  
+  # 编码器参数
+  time_encoder:
+    hidden_size: 64
+    num_layers: 2
+    bidirectional: true
+    dropout: 0.3
+    
+  seq_encoder:
+    nhead: 5
+    dim_feedforward: 128
+    dropout: 0.2
+    num_layers: 2
+    
+  # 注意力机制参数
+  multi_head_attention:
+    num_heads: 4
+    
+  # 对抗训练
+  use_adv: true
+  adversarial_probability: 0.3
+  adversarial_epsilon: 0.05
+  
+  # 特征选择器参数
+  feature_selector:
+    hidden_dims: [128, 64]
+    
+  # 融合层参数
+  fusion:
+    hidden_dims: [256, 128]
+    dropout: 0.3
+    
+  # 分类器参数
+  classifier:
+    hidden_dims: [64]
+    dropout: 0.2
+
+# 数据处理参数
+data:
+  window_size: 100    # 时间窗口大小
+  max_packets: 100    # 每个PCAP最大处理包数
+  
+  # 特征工程
+  time_features:
+    - packet_size
+    - inter_arrival_time  
+    - is_ip_packet
+    - packet_timestamp
+    - relative_position
+    
+  seq_features:
+    - protocol
+    - src_port_normalized
+    - dst_port_normalized
+    - tcp_flags_normalized
+    - udp_length_normalized
+    
+  topo_features:
+    - num_src_ips
+    - num_dst_ips
+    - ip_overlap
+    - num_connections
+    - num_ports
+    - num_protocols
+    - mean_packet_size
+    - std_packet_size
+    - mean_inter_arrival_time
+    - std_inter_arrival_time
+
+# 训练参数
+training:
+  batch_size: 32
+  num_epochs: 50
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  
+  # 优化器
+  optimizer:
+    name: "AdamW"
+    beta1: 0.9
+    beta2: 0.999
+    eps: 1e-8
+    
+  # 学习率调度
+  scheduler:
+    name: "ReduceLROnPlateau"
+    mode: "min"
+    factor: 0.5
+    patience: 5
+    
+  # 早停
+  early_stopping:
+    patience: 10
+    min_delta: 0.0001
+    
+  # 验证
+  validation:
+    split_ratio: 0.15
+    metric: "val_loss"
+    
+  # 测试
+  test:
+    split_ratio: 0.15
+    model_selection: "best_val_loss"
+
+# 扰动实验配置
+perturbation:
+  # 扰动类型
+  types: ["time", "topo", "seq", "none"]
+  
+  # 扰动参数
+  perturbations:
+    time:
+      noise_std: 0.5
+    topo:
+      noise_std: 0.3
+    seq:
+      noise_std: 0.4
+      
+  # 评估参数
+  evaluation:
+    min_weight_reduction: 0.1  # 10%
+    confidence_threshold: 0.05
+    
+# 强化学习参数
+reinforcement_learning:
+  # 动态特征选择器
+  feature_selector:
+    learning_rate: 0.001
+    weight_history_size: 1000
+    
+  # 权重分析
+  analysis:
+    stability_window: 10
+    convergence_threshold: 0.01
+    
+  # 有效性验证
+  validation:
+    perturbation_threshold: 0.1  # 10%权重降低认为有效
+
+# 评估指标
+evaluation:
+  metrics:
+    - "accuracy"
+    - "precision" 
+    - "recall"
+    - "f1_score"
+    - "confusion_matrix"
+    - "classification_report"
+    
+  # 特征重要性分析
+  feature_analysis:
+    enable: true
+    history_tracking: true
+    visualization: true
+
+# 设备配置
+device:
+  use_cuda: true
+  cuda_device: 0
+  non_blocking: true
+  pin_memory: true
+  
+# 随机种子
+random_seed: 42
+
+# 文件路径
+paths:
+  data_dir: "data"
+  results_dir: "results"
+  models_dir: "models"
+  logs_dir: "results/logs"
+  plots_dir: "results/plots"
+  reports_dir: "results/reports"
+  
+# 日志配置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "results/logs/training.log"
+  max_size: "10MB"
+  backup_count: 5
+  
+# 可视化配置
+visualization:
+  figure_size: [12, 8]
+  dpi: 300
+  style: "seaborn-v0_8"
+  colormap: "husl"
+  font:
+    family: ["Noto Sans CJK SC", "WenQuanYi Zen Hei", "PingFang SC", "Arial Unicode MS"]
+    size: 12
+    
+# 实验跟踪
+experiment_tracking:
+  enable: false
+  platform: "wandb"  # wandb, mlflow, tensorboard
+  project_name: "traffic-fingerprinting"
+  experiment_name: null
+  run_name: null
+  
+# 性能优化
+performance:
+  # 数据加载
+  num_workers: 2
+  prefetch_factor: 2
+  
+  # 内存管理
+  gradient_accumulation_steps: 1
+  max_grad_norm: 1.0
+  
+  # 混合精度
+  mixed_precision: false
+  
+  # 模型并行
+  model_parallel: false
