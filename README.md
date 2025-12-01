@@ -253,17 +253,13 @@ print(f"Test Accuracy: {results['test_accuracy']:.4f}")
 
 ## 联系方式
 
-- 作者: MiniMax Agent
-- 邮箱: support@minimax.ai
-- 项目链接: [https://github.com/your-username/traffic-fingerprinting](https://github.com/your-username/traffic-fingerprinting)
+- 作者:Li Gao
+- 邮箱: xdgaoli@qq.com
+- 项目链接: https://github.com/monsterlisudo/etc2.0
 
 ## 致谢
 
-感谢以下开源项目：
-- [PyTorch](https://pytorch.org/) - 深度学习框架
-- [Scapy](https://scapy.net/) - 网络包处理
-- [scikit-learn](https://scikit-learn.org/) - 机器学习库
-- [matplotlib](https://matplotlib.org/) - 可视化工具
+
 
 ## 更新日志
 
