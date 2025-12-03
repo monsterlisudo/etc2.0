@@ -1,4 +1,4 @@
-# Traffic Fingerprinting Network - 流量指纹识别项目
+# Dynamic Classification Method for Encrypted Traffic Using Reinforcement Learning and Lightweight Adversarial Training - ETC项目
 
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-1.9+-red.svg)](https://pytorch.org/)
@@ -6,7 +6,7 @@
 
 ## 项目简介
 
-Traffic Fingerprinting Network 是一个基于深度学习的网络流量分类和指纹识别系统。该项目采用多模态融合技术，结合强化学习机制，能够有效识别不同类型网络流量并进行准确分类。
+一个基于深度学习的网络流量分类和指纹识别系统。该项目采用多模态融合技术，结合强化学习机制，能够有效识别不同类型网络流量并进行准确分类。
 
 ### 核心特性
 
@@ -257,16 +257,3 @@ print(f"Test Accuracy: {results['test_accuracy']:.4f}")
 - 邮箱: xdgaoli@qq.com
 - 项目链接: https://github.com/monsterlisudo/etc2.0
 
-## 致谢
-
-
-
-## 更新日志
-
-### v1.0.0 (2025-11-09)
-- 初始版本发布
-- 多模态流量分类模型
-- 强化学习动态特征选择
-- 对抗训练机制
-- 扰动实验验证
-- 完整训练和测试流程
